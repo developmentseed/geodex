@@ -1,8 +1,11 @@
 version: 2
+machine:
+  python:
+    version: pypy-3.6.3
 jobs:
   build:
     docker:
-      - image: circleci/python:3.6
+      - image: circleci/python:3.6.3
 
     working_directory: ~/geodex
     steps:
