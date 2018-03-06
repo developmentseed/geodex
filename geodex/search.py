@@ -13,7 +13,8 @@ from pygeotile.tile import Tile
 from geodex.utils import get_overlap_child_tiles, format_tile
 
 
-def tile_search(boundary, max_zoom, tile_format='google', print_to=None):
+def tile_search(boundary, max_zoom, tile_format='google',
+                output_format='{x} {y} {z}', print_to=None):
     """Print (or save) tiles belonging to a shape object.
 
     Parameters:
@@ -24,6 +25,9 @@ def tile_search(boundary, max_zoom, tile_format='google', print_to=None):
         Zoom at which to terminate file search
     tile_format: str
         Desired tile format. `google` (default), `tms`, or `quad_tree`
+    output_format: str
+        Format string for printing the tile indices. Only used for tile_format
+        `google` and `tms`. Must contain `{x}`, `{y}`, and `{z}`.
     print_to: object with `write` functionality
         `None` (default) prints to sys.stdout. Pass a (non-binary) file object
         to print directly to an open file.
@@ -58,7 +62,8 @@ def tile_search(boundary, max_zoom, tile_format='google', print_to=None):
         # Check if desired zoom has been reached
         if top_tile.zoom >= max_zoom:
             # If at max zoom, print tile inds or save to file (if specified)
-            print(format_tile(top_tile, tile_format), file=print_to)
+            print(format_tile(top_tile, tile_format, output_format),
+                  file=print_to)
             total_tiles += 1
 
         # Otherwise, zoom in one increment, find children tiles, add to stack
@@ -71,13 +76,13 @@ def tile_search(boundary, max_zoom, tile_format='google', print_to=None):
     return total_tiles
 
 
-def process_geojson(boundaries, max_zoom, tile_format):
+def process_geojson(boundaries, max_zoom, tile_format, output_format):
     """Process entire list of boundaries."""
     total_tiles = 0
 
     # Loop through all boundaries and compute tiles for each
     for bound in boundaries:
-        bound_tiles = tile_search(bound, max_zoom, tile_format)
+        bound_tiles = tile_search(bound, max_zoom, tile_format, output_format)
         total_tiles += bound_tiles
 
     return total_tiles
