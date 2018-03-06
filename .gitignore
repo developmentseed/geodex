@@ -8,3 +8,5 @@ MANIFEST
 .DS_Store
 .coverage
 .cache
+.swp
+.swo
