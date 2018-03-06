@@ -52,7 +52,7 @@ def load_geojson(geojson_fpath):
         features = raw_json['features']
 
         bounds = [feat['geometry'] for feat in features
-                  if feat['geometry']['type'] in ['Polygon', 'Multipolygon']]
+                  if feat['geometry']['type'] in ['Polygon', 'MultiPolygon']]
     return bounds
 
 
