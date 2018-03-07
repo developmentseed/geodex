@@ -42,8 +42,12 @@ geodex zone_17.geojson 15 'tms' >> tile_indices.txt
 ```
 
 ## Additional details
-GeoDex is optimized to use very little RAM (compared to our previous tool, [`cover.js`](https://github.com/developmentseed/skynet-train/blob/master/cover.js)). It uses a depth-first search algorithm that continually returns tile indices instead of storing all tiles in memory at once. This strategy ensures that the program won't crash due to memory overflow (as full tile lists can easily grow to a few gigabytes). The total runtime generally depends on the number of tiles (determined by boundary size and zoom level) as well as the roughness of the boundary.
+GeoDex is optimized to use very little RAM (compared to our previous tool, [`cover.js`](https://github.com/developmentseed/skynet-train/blob/master/cover.js)). It uses a depth-first search algorithm that continually returns tile indices instead of storing all tiles in memory at once (see toy example below). This strategy ensures that the program won't crash due to memory overflow as full tile lists can grow to a few gigabytes. The total runtime generally depends on the number of tiles (determined by boundary size and zoom level) as well as the roughness of the boundary.
 
+### Toy example
+![](depth_first_toy_example.gif)
+
+### Scripting with GeoDex
 Command line functionality is mostly insulated from the core code. Therefore, you can incorporate this algorithm into a script by catching `sys.stdout` with something like [`contextlib`'s `redirect_stdout`](https://docs.python.org/3.4/library/contextlib.html#contextlib.redirect_stdout). 
 
-GeoDex was developed during a project to map high-voltage electricity lines that was supported by the World Bank.
+GeoDex was developed during a [project to map high-voltage electricity lines](https://www.developmentseed.org/ml-grid-docs/) that was supported by the [World Bank](http://www.worldbank.org/).
