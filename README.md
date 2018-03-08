@@ -2,6 +2,8 @@
 
 GeoDex is tool to find tile indices for geospatial work on satellite imagery. Given **(1)** a geojson file containing a boundary and **(2)** a zoom level, GeoDex will return all satellite imagery tile indices that at least partially overlap the boundary. Returned tile indices can be written to a text file for further processing.
 
+Install with `pip install geodex`
+
 
 ## Basic usage example 1
 Specify only a geojson file and zoom:
@@ -42,7 +44,9 @@ geodex zone_17.geojson 15 'tms' >> tile_indices.txt
 ```
 
 ## Additional details
-GeoDex is optimized to use very little RAM (compared to our previous tool, [`cover.js`](https://github.com/developmentseed/skynet-train/blob/master/cover.js)). It uses a depth-first search algorithm that continually returns tile indices instead of storing all tiles in memory at once (see toy example below). This strategy ensures that the program won't crash due to memory overflow as full tile lists can grow to a few gigabytes. The total runtime generally depends on the number of tiles (determined by boundary size and zoom level) as well as the roughness of the boundary.
+GeoDex is optimized to use very little RAM (compared to our previous tool, [`cover.js`](https://github.com/developmentseed/skynet-train/blob/master/cover.js)). It uses a depth-first search algorithm that continually returns tile indices instead of storing all tiles in memory at once (see toy example below). This ensures that the program won't crash due to memory overflow as full tile lists can grow to a few gigabytes. The total runtime generally depends on the number of tiles (determined by boundary size and zoom level) as well as the roughness of the boundary.
+
+Tile indexing is built on top of [pyGeoTile](https://github.com/geometalab/pyGeoTile).
 
 ### Toy example
 <img src="./depth_search_toy_example.gif" width="450" />
