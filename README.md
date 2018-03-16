@@ -2,6 +2,9 @@
 
 GeoDex is tool to find tile indices for geospatial work on satellite imagery. Given **(1)** a geojson file containing a boundary and **(2)** a zoom level, GeoDex will return all satellite imagery tile indices that at least partially overlap the boundary. Returned tile indices can be written to a text file for further processing.
 
+## Installation
+`pip install geodex`
+
 
 ## Basic usage example 1
 Specify only a geojson file and zoom:
@@ -51,3 +54,7 @@ GeoDex is optimized to use very little RAM (compared to our previous tool, [`cov
 Command line functionality is mostly insulated from the core code. Therefore, you can incorporate this algorithm into a script by catching `sys.stdout` with something like [`contextlib`'s `redirect_stdout`](https://docs.python.org/3.4/library/contextlib.html#contextlib.redirect_stdout). 
 
 GeoDex was developed during a [project to map high-voltage electricity lines](https://www.developmentseed.org/ml-grid-docs/) that was supported by the [World Bank](http://www.worldbank.org/).
+
+## See also
+
+GeoDex has some overlapping functionality with [mercantile](http://mercantile.readthedocs.io/en/latest/index.html). GeoDex uses pyGeoTile to obtain tile indices for specific bounding regions, so it has some added features like specifying tile output format and the ability to handle three major tile formats (Google, TMS, and QuadTree).
