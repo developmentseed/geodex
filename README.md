@@ -1,6 +1,6 @@
 # GeoDex
 
-GeoDex is tool to find tile indices for geospatial work on satellite imagery. Given **(1)** a geojson file containing a boundary and **(2)** a zoom level, GeoDex will return all satellite imagery tile indices that at least partially overlap the boundary. Returned tile indices can be written to a text file for further processing.
+GeoDex is tool to find tile indices for geospatial work on satellite imagery. Given **(1)** a geojson file containing at least one polygon boundary and **(2)** a zoom level, GeoDex will return all satellite imagery [tile indices](http://www.maptiler.org/google-maps-coordinates-tile-bounds-projection/) that at least partially overlap the boundary. Returned tile indices can be written to a text file for further processing.
 
 ## Installation
 `pip install geodex`
@@ -58,4 +58,4 @@ GeoDex was developed during a [project to map high-voltage electricity lines](ht
 
 ## See also
 
-GeoDex has some overlapping functionality with [mercantile](http://mercantile.readthedocs.io/en/latest/index.html). GeoDex uses pyGeoTile to obtain tile indices for specific bounding regions, so it has some added features like specifying tile output format and the ability to handle three major tile formats (Google, TMS, and QuadTree).
+GeoDex has some overlapping functionality with [mercantile](http://mercantile.readthedocs.io/en/latest/index.html) as both can get all indices within a bounding region. If your geojson specifies a single rectangle, Mercantile can be faster. However, GeoDex will also properly handle geojsons specifying an arbitrary (non-rectangular) polygon or multiple polygons within the same geojson. Additionally, GeoDex uses [pyGeoTile](https://github.com/geometalab/pyGeoTile) to obtain tile indices for specific bounding regions, so it has some added features like the ability to request all three handle three major tile formats (Google, TMS, and QuadTree).
