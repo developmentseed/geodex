@@ -52,9 +52,20 @@ Tile indexing is built on top of [pyGeoTile](https://github.com/geometalab/pyGeo
 <img src="./depth_search_toy_example.gif" width="450" />
 
 ### Scripting with GeoDex
-Command line functionality is mostly insulated from the core code. Therefore, you can incorporate this algorithm into a script by catching `sys.stdout` with something like [`contextlib`'s `redirect_stdout`](https://docs.python.org/3.4/library/contextlib.html#contextlib.redirect_stdout). 
+The command line functionality is mostly insulated from the core code. Therefore, you can incorporate this algorithm into a script by catching `sys.stdout` as follows:
+```
+import subprocess
+from ast import literal_eval
 
-GeoDex was developed during a [project to map high-voltage electricity lines](https://www.developmentseed.org/ml-grid-docs/) that was supported by the [World Bank](http://www.worldbank.org/).
+# Run geojson through GeoDex, get tiles
+std_result = subprocess.run(['geodex', '/Users/wronk/Builds/looking-glass/preds/bounds/hcmc-simple.geojson', str(15), '--output-format', '({z}, {x}, {y})'], stdout=subprocess.PIPE)
+
+# Convert from bytes to string, then to tuples
+tile_inds_string = std_result.stdout.decode('utf-8').split('\n')
+tile_inds_tuple = [literal_eval(ti) for ti in tile_inds_string if len(ti) > 0]
+```
+
+GeoDex was developed during a [project to map high-voltage electricity lines](https://www.devseed.com/ml-grid-docs/) that was supported by the [World Bank](http://www.worldbank.org/).
 
 ## See also
 
